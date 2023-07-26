@@ -65,7 +65,7 @@ int segment2(sudoku *sud)
                     {
                         for (int e = 0; e < 9; e++)
                         {   
-                            for (int f = yprime; f < yprime + 3; f++)
+                            for (int f = xprime; f < xprime + 3; f++)
                             {
                                 if (index_i != e / 3)
                                 {
