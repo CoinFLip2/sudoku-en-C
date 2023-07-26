@@ -22,26 +22,21 @@ int segment2(sudoku *sud)
                         cube_Csegment[b] = 0;
                     }
 
-                    int _i = 3 * (i / 3);
-                    int _j = 3 * (j / 3);
-
-                    for (int x = _i; x < _i + 3; x++)
+                    if (sud -> megaTab[i][j][n - 1] == 1)
                     {
-                        for (int y = _j; y < _j + 3; y++)
-                        {
-                            for (int q = 0; q < 9; q++)
-                            {   
-                                if (sud->megaTab[q][j][n - 1] == 1)
-                                {
-                                    cube_Lsegment[q / 3]++;                                    
-                                }
-                                if (sud -> megaTab[i][q][n - 1] == 1)
-                                {
-                                    cube_Csegment[q / 3]++;
-                                }
+                        for (int q = 0; q < 9; q++)
+                        {   
+                            if (sud->megaTab[q][j][n - 1] == 1)
+                            {
+                                cube_Lsegment[q / 3]++;                                    
+                            }
+                            if (sud -> megaTab[i][q][n - 1] == 1)
+                            {
+                               cube_Csegment[q / 3]++;
                             }
                         }
                     }
+
                     int incr_ligne = 0;
                     int incr_colonne = 0;
 
@@ -63,9 +58,9 @@ int segment2(sudoku *sud)
 
                     if (incr_ligne == 1 && cube_Lsegment[index_i] > 1)
                     {
-                        for (int e = 0; e < 9; e++)
+                        for (int e = xprime; e < xprime + 3; e++)
                         {   
-                            for (int f = xprime; f < xprime + 3; f++)
+                            for (int f = yprime; f < yprime + 3; f++)
                             {
                                 if (index_i != e / 3)
                                 {
@@ -79,7 +74,7 @@ int segment2(sudoku *sud)
                     }
                     if (incr_colonne == 1 && cube_Lsegment[index_j] > 1)
                     {
-                        for (int e = 0; e < 9; e++)
+                        for (int e = xprime; e < xprime + 3; e++)
                         {   
                             for (int f = yprime; f < yprime + 3; f++)
                             {

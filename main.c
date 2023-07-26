@@ -50,7 +50,7 @@ int main(int ac, char **av)
         printf("Sudoku insoluble\n");
 
     
-    removes(&sud, 80);
+    removes(&sud, 81);
 
     for (int j = 0; j < 9; j++)
     {
