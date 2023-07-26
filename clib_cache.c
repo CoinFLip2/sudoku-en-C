@@ -11,7 +11,7 @@ int clib_cache(sudoku *sud)
             if (sud->gridClone[i][j] == 0)
             {
                 int last = 0;
-                for (int n; n < 9; n++)
+                for (int n = 0; n < 9; n++)
                 {
                     if (sud->megaTab[i][j][n] == 1)
                     {

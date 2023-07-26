@@ -11,7 +11,7 @@ int solver(sudoku *sud)
        
     for (int n = 0; n < 9; n++)
     {
-        if (test_chiffre(sud->range[n], sud, x, y) == 1)
+        if (test_chiffre(sud->range[n], sud->grid, x, y) == 1)
         {
             sud->grid[x][y] = sud->range[n];
 

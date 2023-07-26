@@ -2,24 +2,25 @@
 
 int gridasse(sudoku *sud)
 {
-    for i
+    for (int i = 0; i < 9; i++)
     {
-        for j
+        for (int j = 0; j < 9; j++)
         {
             if (sud->grid[i][j] == 0)
             {
                 for (int n = 1; n < 10; n++)
                 {
-                    if testchiffre[n]
+                    if (test_chiffre(n, sud->gridClone, i, j))
                     {
-                        sud->gridClone[i][j][n - 1] = true;
+                        sud->megaTab[i][j][n - 1] = 1;
                     }
                     else
                     {
-                        sud->gridClone[i][j][n - 1] = false;
+                        sud->megaTab[i][j][n - 1] = 0;
                     }
                 }
             }
         }
     }
+    return 0;
 }

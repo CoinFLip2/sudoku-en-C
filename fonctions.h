@@ -19,12 +19,12 @@ typedef struct      s_sudoku
 /*
 Trouver une case vide
 */
-int case_vide(sudoku *sud, int *x, int *y);
+int case_vide(int grid[9][9], int *x, int *y);
 
 /*
 Tester si un chiffre est valide
 */
-int test_chiffre(int n, sudoku *sud, int x, int y);
+int test_chiffre(int n, int grid[9][9], int x, int y);
 
 /*
 Recursivite pour solutionner le sudoku
@@ -39,7 +39,7 @@ void shuffle(sudoku *sud);
 /*
 remplace des chiffre aléatoire par zéro
 */
-void remove(sudoku *sud, int number_to_remove);
+void removes(sudoku *sud, int number_to_remove);
 
 /*
 résout les sudoku de manière humainement possible
@@ -64,8 +64,10 @@ int celib_nu(sudoku *sud);
 int clib_cache(sudoku *sud);
 
 
+/*
 
-
+*/
+int segment(sudoku *sud);
 
 
 

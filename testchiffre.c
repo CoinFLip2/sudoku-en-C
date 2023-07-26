@@ -1,10 +1,10 @@
 #include "fonctions.h"
 
-int test_chiffre(int n, sudoku *sud, int x, int y)
+int test_chiffre(int n, int grid[9][9], int x, int y)
 {
     for (int i = 0; i < 9; i++)
     {
-        if (sud->grid[i][y] == n)
+        if (grid[i][y] == n)
         {
             return 0;
         }
@@ -12,7 +12,7 @@ int test_chiffre(int n, sudoku *sud, int x, int y)
 
     for (int j = 0; j < 9; j++)
     {
-        if (sud->grid[x][j] == n)
+        if (grid[x][j] == n)
         {
             return 0;
         }
@@ -25,7 +25,7 @@ int test_chiffre(int n, sudoku *sud, int x, int y)
     {
         for (int j = _j; j < _j + 3; j++)
         {
-            if (sud->grid[i][j] == n)
+            if (grid[i][j] == n)
                 return 0;
         }
     }

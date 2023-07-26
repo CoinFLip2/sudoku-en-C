@@ -13,7 +13,7 @@ int idiot_solver(sudoku *sud)
         running = 0;
         segments = 0;
         segments += segment(sud);
-        running += clib_nu(sud);
+        running += celib_nu(sud);
         running += clib_cache(sud);
         if (running != 0)
         {

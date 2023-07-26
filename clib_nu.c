@@ -10,25 +10,24 @@ int celib_nu(sudoku *sud)
     {
         for (int j = 0; j < 9; j++)
         {
-            if (sud -> gridClone[i][j] == 0)
+            if (sud->gridClone[i][j] == 0)
             {
                 collect_true = 0;
-                for (int n; n < 9; n++)
+                for (int n = 0; n < 9; n++)
                 {
-                    if (sud -> megaTab[i][j][n] == 1)
+                    if (sud->megaTab[i][j][n] == 1)
                     {
                         collect_true++;
                         last = n + 1;
                     }
-                if (collect_true == 1)
-                {
-                    sud -> gridClone[i][j] = last;
-                    return_value++;
+                    if (collect_true == 1)
+                    {
+                        sud->gridClone[i][j] = last;
+                        return_value++;
+                    }
                 }
-                }
-
             }
         }
     }
-return return_value;    
+    return return_value;
 }

@@ -11,6 +11,7 @@ clib_nu.c\
 clib_cache.c\
 idiot_solver.c\
 segment.c\
+gridasse.c\
 
 OBJS := $(SRCS:.c=.o)
 
@@ -29,6 +30,7 @@ test : $(NAME)
 clean:
 	$(RM) $(OBJS)
 
-fclean : clean$(RM) $(NAME)
+fclean : clean
+	$(RM) $(NAME)
 
 re: fclean all
