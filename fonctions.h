@@ -51,25 +51,15 @@ cherche plusieur réponse possible
 */
 int idiot_solver(sudoku *sud);
 
-
-/*
-
-*/
 int celib_nu(sudoku *sud);
 
 
-/*
-
-*/
 int clib_cache(sudoku *sud);
 
 
-/*
-
-*/
 int segment(sudoku *sud);
 
-
+int segment2(sudoku *sud);
 
 
 

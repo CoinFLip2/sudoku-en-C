@@ -12,6 +12,7 @@ clib_cache.c\
 idiot_solver.c\
 segment.c\
 gridasse.c\
+segment2.c\
 
 OBJS := $(SRCS:.c=.o)
 
