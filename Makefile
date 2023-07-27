@@ -25,6 +25,7 @@ idiot_solver.c\
 segment.c\
 gridasse.c\
 segment2.c\
+graphics_innit.c\
 
 SRCS := $(addprefix $(SRCS_FOLDER)/, $(SRCS_RAW))
 OBJS := $(SRCS:$(SRCS_FOLDER)/%.c=$(OBJS_FOLDER)/%.o)

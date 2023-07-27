@@ -1,4 +1,4 @@
-objs/casevide.o: src/casevide.c include/fonctions.h \
+objs/graphics_innit.o: src/graphics_innit.c include/fonctions.h \
  include/SDL2/SDL_ttf.h include/SDL2/SDL.h include/SDL2/SDL_main.h \
  include/SDL2/SDL_stdinc.h include/SDL2/SDL_config.h \
  include/SDL2/SDL_platform.h include/SDL2/begin_code.h \

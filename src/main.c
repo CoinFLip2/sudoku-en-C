@@ -61,6 +61,20 @@ int main(int ac, char **av)
         printf("\n");
     }
 
+    innitGraphics(&sud);
+    int quit = 1;
+    while (quit)
+    {
+        SDL_Event event;
+        while (SDL_PollEvent(&event))
+        {
+            if (event.type == SDL_QUIT)
+               quit = 0;
+        }       
+    }
+
+    quitGraphics(&sud);
+
     return 0;
 }
 
