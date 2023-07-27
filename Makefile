@@ -1,6 +1,18 @@
-NAME := ./sudoku
+TARGET := sudoku
+CC := gcc
 
-SRCS := main.c \
+SRCS_FOLDER := src
+INCLUDE_FOLDER := include
+PREREQUISITES_FOLDER := prerequisites
+OBJS_FOLDER := objs
+BIN_FOLDER := .
+
+SDL_INCLUDE := -I./include
+
+CFLAGS := -Wall -Wextra -flto -O3 -I$(INCLUDE_FOLDER) -I$(PREREQUISITES_FOLDER) -I$(SDL_INCLUDE) -MMD
+LDFLAGS := -L./lib/
+
+SRCS_RAW := main.c \
 casevide.c\
 solver.c\
 testchiffre.c\
@@ -14,24 +26,33 @@ segment.c\
 gridasse.c\
 segment2.c\
 
-OBJS := $(SRCS:.c=.o)
+SRCS := $(addprefix $(SRCS_FOLDER)/, $(SRCS_RAW))
+OBJS := $(SRCS:$(SRCS_FOLDER)/%.c=$(OBJS_FOLDER)/%.o)
+DEPS := $(OBJS:.o=.d)
+PREREQUISITES := $(wildcard $(PREREQUISITES_FOLDER)/*.c)
 
-CC := gcc
-CFLAGS := -Wall -Wextra
-RM := rm -rf
+.PHONY: all clean re fclean test
 
-all: $(NAME)
+all: $(TARGET)
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $(BIN_FOLDER)/$@ $^ -lSDL2 -lSDL2_ttf
 
-test : $(NAME)
-	$(NAME) chiffre.txt
+$(OBJS_FOLDER)/%.o: $(SRCS_FOLDER)/%.c | $(OBJS_FOLDER)
+	$(CC) $(CFLAGS) -c $< -o $@ -MMD -MF $(@:.o=.d)
+
+-include $(DEPS)
+
+$(OBJS_FOLDER):
+	mkdir -p $(OBJS_FOLDER)
 
 clean:
-	$(RM) $(OBJS)
+	$(RM) $(OBJS) $(DEPS)
 
-fclean : clean
-	$(RM) $(NAME)
+fclean: clean
+	$(RM) $(BIN_FOLDER)/$(TARGET)
 
 re: fclean all
+
+test: all
+	$(BIN_FOLDER)/$(TARGET) chiffre.txt
