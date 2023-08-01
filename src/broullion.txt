@@ -1,0 +1,480 @@
+//  N is the size of the 2D matrix   N*N
+// #define N 9
+
+// /* A utility function to print grid */
+// void print(int arr[N][N])
+// {
+//      for (int i = 0; i < N; i++)
+//       {
+//          for (int j = 0; j < N; j++)
+//             printf("%d ",arr[i][j]);
+//          printf("\n");
+//        }
+// }
+
+// Checks whether it will be legal
+//  to assign num to the
+//  given row, col
+// int isSafe(int grid[N][N], int row,
+//                        int col, int num)
+// {
+
+//     Check if we find the same num
+//      in the similar row , we return 0
+//     for (int x = 0; x <= 8; x++)
+//         if (grid[row][x] == num)
+//             return 0;
+
+//     Check if we find the same num in the
+//      similar column , we return 0
+//     for (int x = 0; x <= 8; x++)
+//         if (grid[x][col] == num)
+//             return 0;
+
+//      Check if we find the same num in the
+//      particular 3*3 matrix, we return 0
+//     int startRow = row - row % 3,
+//                  startCol = col - col % 3;
+
+//     for (int i = 0; i < 3; i++)
+//         for (int j = 0; j < 3; j++)
+//             if (grid[i + startRow][j +
+//                           startCol] == num)
+//                 return 0;
+
+//     return 1;
+// }
+
+//  Takes a partially filled-in grid and attempts
+// to assign values to all unassigned locations in
+// such a way to meet the requirements for
+// Sudoku solution (non-duplication across rows,
+// columns, and boxes) */
+// int solveSudoku(int grid[N][N], int row, int col)
+// {
+
+//      Check if we have reached the 8th row
+//      and 9th column (0
+//      indexed matrix) , we are
+//     returning true to avoid
+//      further backtracking
+//     if (row == N - 1 && col == N)
+//         return 1;
+
+//       Check if column value  becomes 9 ,
+//       we move to next row and
+//      column start from 0
+//     if (col == N)
+//     {
+//         row++;
+//         col = 0;
+//     }
+
+//      Check if the current position
+//      of the grid already contains
+//      value >0, we iterate for next column
+//     if (grid[row][col] > 0)
+//         return solveSudoku(grid, row, col + 1);
+
+//     for (int num = 1; num <= N; num++)
+//     {
+
+//          Check if it is safe to place
+//          the num (1-9)  in the
+//          given row ,col  ->we move to next column
+//         if (isSafe(grid, row, col, num)==1)
+//         {
+//              assigning the num in the
+//                current (row,col)
+//                position of the grid
+//                and assuming our assigned num
+//                in the position
+//                is correct     */
+//             grid[row][col] = num;
+
+//               Checking for next possibility with next
+//               column
+//             if (solveSudoku(grid, row, col + 1)==1)
+//                 return 1;
+//         }
+
+//          Removing the assigned num ,
+//          since our assumption
+//          was wrong , and we go for next
+//          assumption with
+//          diff num value
+//         grid[row][col] = 0;
+//     }
+//     return 0;
+// }
+
+// int main()
+// {
+//      0 means unassigned cells
+//     int grid[N][N] = { { 3, 0, 6, 5, 0, 8, 4, 0, 0 },
+//                        { 5, 2, 0, 0, 0, 0, 0, 0, 0 },
+//                        { 0, 8, 7, 0, 0, 0, 0, 3, 1 },
+//                        { 0, 0, 3, 0, 1, 0, 0, 8, 0 },
+//                        { 9, 0, 0, 8, 6, 3, 0, 0, 5 },
+//                        { 0, 5, 0, 0, 9, 0, 6, 0, 0 },
+//                        { 1, 3, 0, 0, 0, 0, 2, 5, 0 },
+//                        { 0, 0, 0, 0, 0, 0, 0, 7, 4 },
+//                        { 0, 0, 5, 2, 0, 6, 3, 0, 0 } };
+
+//     if (solveSudoku(grid, 0, 0)==1)
+//         print(grid);
+//     else
+//         printf("No solution exists");
+
+//     return 0;
+//      This is code is contributed by Pradeep Mondal P
+// }
+
+// void new_table(table *line_table, int newint)
+// {
+//     int *temp = (int *)malloc((line_table->len + 1) * sizeof(int));
+//     for (int i = 0; i < line_table->len; i++)
+//     {
+//         temp[i] = line_table->array[i];
+//     }
+//     free(line_table->array);
+//     temp[line_table->len] = newint;
+//     line_table->len++;
+//     line_table->array = temp;
+// }
+
+// int main(int ac, char **av)
+// {
+//     if (ac < 2)
+//     {
+//         printf("Usage : %s <file>\n", av[0]);
+//         return 1;
+//     }
+//     FILE *file = fopen(av[1], "r");
+//     if (!file)
+//     {
+//         printf("Error: could not open file %s\n", av[1]);
+//         return 1;
+//     }
+
+//     char line[50];
+
+//     int **grid = (table *)calloc(9, sizeof(int *));
+//     int n = 0;
+
+//     while (fgets(line, sizeof(line), file))
+
+//     {
+//         char **tab = strsplit(line, ' ');
+//         int *Arr = (int *)malloc(sizeof(int) * 9);
+//         for (int i = 0; tab[i]; i++)
+
+//         {
+//             int num = atoi(tab[i]);
+//             Arr[i] = num;
+//             free(tab[i]);
+//         }
+//         free(tab);
+//         grid[j] = Arr;
+//         j++;
+//     }
+
+//     for (int i = 0; i < 9; i++)
+//     {
+//         for (int j = 0; j < 9; j++)
+//         {
+//             printf("%d ", grid[j].array[i]);
+//         }
+//         printf("\n");
+//     }
+//     return 0;
+// }
+
+// solver(table);
+
+// int fibonaccci(int a, int b, int n)
+// {
+//     if (n == 0)
+//     {
+//         return a;
+//     }
+//     if (n == 1)
+//     {
+//         return b;
+//     }
+//     return fibonaccci(a, b, n - 1) + fibonaccci(a, b, n - 2);
+// }
+
+// int main()
+// {
+//     int result = fibonaccci(0, 1, 39);
+//     printf("%i", result);
+// }
+
+// int pow_recursive(int num, int power)
+//{
+//     if (power == 0)
+//         return 1;
+//     return num * pow_recursive(num, power - 1);
+// }
+
+// int pow_iter(int num, int power)
+//{
+//     int result = 1;
+//     for( int i = 0; i < power; i++)
+//         result *= num;
+//     return result;
+// }
+
+// int main(int ac, char **av)
+//{
+//     if(ac < 3)
+//         return 0;
+//     int num = atoi(av[1]);
+//     int power = atoi(av[2]);
+//     int result = pow_iter(num, power);
+//     printf("%d\n", result);
+//
+//     return 0;
+// }
+
+// int countwords(char *str, char delimiter)
+//{
+//
+//     int i = 0;
+//     int count = 0;
+//     while(str[i] == delimiter)
+//         i++;
+//     while (str[i])
+//     {
+//
+//         if (str[i] == delimiter)
+//         {
+//
+//             count++;
+//             while(str[i] == delimiter)
+//                 i++;
+//         }
+//         else
+//             i++;
+//     }
+//     return count;
+// }
+//
+// char **strsplit(char *str, char delimiter)
+//{
+//     int i = 0;
+//     int number = 0;
+//     char **tab;
+//     tab = malloc(sizeof(char*) * (countwords(str, delimiter) + 1));
+//     while (str[i] == delimiter)
+//         i++;
+//     while (str[i])
+//     {
+//        int len = 0;
+//         while (str[i + len] != 0 && str[i + len] != delimiter)
+//             i++;
+//         tab[number] = malloc(sizeof(char) * (len + 1));
+//         for (int j = 0; j < len; j++)
+//             tab[number][j] = str[i + j];
+//         tab[number][len] = '\0';
+//         i += len;
+//         while (str[i] == delimiter)
+//             i++;
+//         number++;
+//     }
+//     tab[number] = NULL;
+//     return tab;
+// }
+
+// int main(int ac, char **av)
+// {
+//    if (ac < 2)
+//    {
+//        printf("Usage : %s <file>\n", av[0]);
+//        return 1;
+//    }
+//    FILE *file = fopen(av[1], "r");
+//    if (!file)
+//    {
+//        printf("Error: could not open file %s\n", av[1]);
+//        return 1;
+//    }
+// char line[50];
+// size_t len = 0;
+// size_t read;
+// while (fgets(line, sizeof(line), file))
+// {
+//    if((line[0] <= '9') && (line[0] >= '0'))
+//    {
+//        int number = atoi(line);
+//        printf("%i \n", number);
+//    }
+// }
+// return 0;
+// }
+
+// int print(char *str) {
+//     printf("%s", str);
+// }
+//
+// void addToArray(intArray *arr, int num) {
+//
+//     int newSize = (arr->len + 1) * sizeof(int);
+//
+//     if (newSize > arr->size) {
+//
+// }
+//
+//     int *temp = (int*)malloc(newSize);
+//
+//     for (int i = 0; i < arr->len; i++) {
+//         temp[i] = arr->content[i] ;
+//     }
+//
+//     temp[arr->len] = num;
+//
+//     arr->len++;
+//
+//     free(arr->content);
+//     arr->content = temp;
+// }
+//
+// int main(int arg) {
+//
+//     intArray *arr = (intArray *)malloc(sizeof(intArray));
+//    arr->content =  (int*)malloc(sizeof(int));
+//
+//     arr->content[0] = 0?
+//
+//
+//
+//
+// }
+
+// int main(int argc, char **argv) {
+//
+//     intArray *arr = (intArray *)malloc(sizeof(intArray));
+//     arr->content =  (intArray*)malloc((argc - 1) * sizeof(int));
+//
+//     arr->size = argc - 1;
+//
+//     for (int i = 1; i < argc; i++) {
+//         arr->content[i - 1] = atoi(argv[i]);
+//     }
+//
+//     int result = 0;
+//
+//     for (int i = 0; i < arr->size; i++) {
+//         result += arr->content[i];
+//     }
+//
+//
+//     printf("Size : %i\n", arr->size);
+//     printf("Sum : %i\n", result);
+//
+//     int *temp = (int*)malloc((arr->size));
+//
+//     int num1, num2;
+//
+//     for (int i = 0; i < arr->size; i++) {
+//         temp[i] = arr->content[i];
+//     }
+//
+//     printf("Inserer un premier chiffre : ");
+//     scanf("%i", &num1);
+//
+//     printf("Inserer un deuxieme chiffre :");
+//     scanf("%i", &num2);
+//
+//     arr->size += 2;
+//
+//     temp[arr->size - 2] = num1;
+//     temp[arr->size - 1] = num2;
+//
+//     free(arr->content);
+//     arr->content = temp;
+//
+//     for (int i = 0; i < arr->size; i++) {
+//         printf("%i\n", arr->content[i]);
+//   }
+//
+//     free(arr->content);
+//     free(arr);
+//
+//     return 0;
+// }
+
+// int main(int argc, char **argv)
+//{
+//     struct String {
+//         int a;
+//         char *b;
+//     };
+//
+//    struct String *s = (struct String *)malloc(sizeof(struct String));
+//
+//     s->b = "Hello World";
+//     s->a = strlen(s->b);
+//
+//     struct String s2;
+//     s2.b = "Hello people of planet Earth";
+//     s2.a = strlen(s2.b);
+//
+//     Point p;
+//     p.x = 10;
+//     p.y = 20;
+//
+//     Point *p2 = (Point*)malloc(sizeof(Point));
+//     p2->x = 30;
+//     p2->y = 40;
+//
+//    free(s);
+//     free(p2);
+//
+//    return 0;
+// }
+
+// int main(int argc, char *argv[])
+//{
+//     int *intArr = (int *)malloc((argc - 1) * sizeof(int));
+//     for (int i = 1; i < argc; i++)
+//     {
+//         intArr[i - 1] = atoi(argv[i]);
+//     }
+//     int minus;
+//     for (int i = 1; i < argc; i++)
+//     {
+//         if (i == 0)
+//         {
+//            minus = intArr[i];
+//         }   else
+//         {
+//             minus -= intArr[i];
+//         }
+//         minus = intArr[i] - intArr[i + 1];
+//     }
+//
+//     printf("le résultat est: %d", minus);
+//     free(intArr);
+//     return 0;
+// }
+
+// int main(int argc, char *argv[]) {
+//     int j = 0;
+//    for (int i = 1; i < argc; i++)
+//     {
+//         j += strlen(argv[i]);
+//         j ++;
+//     }
+//     char *str = (char  *)malloc(j);
+//     *str = 0;
+//     for (int i = 1; i < argc; i++)
+//     {
+//         strcat(str, argv[i]);
+//         strcat(str, " ");
+//     }
+//     printf("%s\n", str);
+//     free(str);
+//     return 0;
+// }
