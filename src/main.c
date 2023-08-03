@@ -131,14 +131,14 @@ int main(int ac, char **av)
 
     removes(&sud, 81);
 
-    for (int j = 0; j < 9; j++)
-    {
-        for (int i = 0; i < 9; i++)
-        {
-            printf("%i ", sud.grid[j][i]);
-        }
-        printf("\n");
-    }
+    // for (int j = 0; j < 9; j++)
+    // {
+    //     for (int i = 0; i < 9; i++)
+    //     {
+    //         printf("%i ", sud.grid[j][i]);
+    //     }
+    //     printf("\n");
+    // }
 
     while (isOpen)
     {
