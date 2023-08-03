@@ -17,19 +17,18 @@
 void drawSudoku(SDL_Renderer* pRenderer, sudoku* sud) {
     int cellSize = CELL_SIZE;
 
-    TTF_Font* font = NULL;
 
+    TTF_Font* font = TTF_OpenFont("SHORTBABY-MG2W.TTF", 16); // Remplacez le chiffre par la taille de police souhaitée
     SDL_Color textColor = { 0, 0, 0, 255 }; // Couleur noire pour le texte
 
     // Parcourez la grille de Sudoku et dessinez les chiffres
-    for (int y = 0; y < GRID_SIZE; y++) {
-        for (int x = 0; x < GRID_SIZE; x++) {
+    for (int y = 0; y < 9; y++) {
+        for (int x = 0; x < 9; x++) {
             int num = sud->grid[y][x];
             if (num != 0) 
             {
-                char numStr[2];
-                snprintf(numStr, sizeof(numStr), "%d", num);
-
+                char numStr[2] = {num + '1', 0};
+                // snprintf(numStr, sizeof(numStr), "%d", num);
                 // Calculer la position pour dessiner le nombre au centre de la cellule
                 int textX = x * cellSize + cellSize / 2;
                 int textY = y * cellSize + cellSize / 2;
@@ -51,6 +50,8 @@ void drawSudoku(SDL_Renderer* pRenderer, sudoku* sud) {
             }
         }
     }
+    
+    TTF_CloseFont(font);
 }
 
 int main(int ac, char **av)
@@ -99,57 +100,16 @@ int main(int ac, char **av)
     SDL_Event events;
     int isOpen = 1;
 
-    TTF_Font* font = TTF_OpenFont("C:/Windows/Fonts/ShortBaby-Mg2w.ttf", 16); // Remplacez le chiffre par la taille de police souhaitée
-    if (!font) 
-    {
-    SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "[DEBUG] > %s", TTF_GetError());
-    SDL_DestroyRenderer(pRenderer);
-    SDL_DestroyWindow(pWindow);
-    TTF_Quit();
-    SDL_Quit();
-    return EXIT_FAILURE;
-    }
+    // if (!font) 
+    // {
+    // SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "[DEBUG] > %s", TTF_GetError());
+    // SDL_DestroyRenderer(pRenderer);
+    // SDL_DestroyWindow(pWindow);
+    // TTF_Quit();
+    // SDL_Quit();
+    // return EXIT_FAILURE;
+    // }
 
-    while (isOpen)
-    {
-        while (SDL_PollEvent(&events))
-        {
-            switch (events.type)
-            {
-            case SDL_QUIT:
-                isOpen = 0;
-                break;
-            }
-        }
-
-        SDL_SetRenderDrawColor(pRenderer, 255, 255, 255, 255);
-        SDL_RenderClear(pRenderer);
-
-        SDL_SetRenderDrawColor(pRenderer, 0, 0, 0, 255);
-
-        // Tracez des lignes horizontales
-        for (int y = 0; y < GRID_SIZE; y++)
-        {
-            SDL_RenderDrawLine(pRenderer, 0, y * CELL_SIZE, WIDTHSCREEN, y * CELL_SIZE);
-        }
-
-        // Tracez des lignes verticales
-        for (int x = 0; x < GRID_SIZE; x++)
-        {
-            SDL_RenderDrawLine(pRenderer, x * CELL_SIZE, 0, x * CELL_SIZE, HEIGHTSCREEN);
-        }
-
-        // Dessinez les numéros de la grille du Sudoku
-        drawSudoku(pRenderer, &sud);
-
-        SDL_RenderPresent(pRenderer);
-    }
-
-    SDL_DestroyRenderer(pRenderer);
-    SDL_DestroyWindow(pWindow);
-    SDL_Quit();
-
-    return EXIT_SUCCESS;
 
     while (fgets(line, sizeof(line), file))
     {
@@ -180,6 +140,46 @@ int main(int ac, char **av)
         printf("\n");
     }
 
+    while (isOpen)
+    {
+        while (SDL_PollEvent(&events))
+        {
+            switch (events.type)
+            {
+            case SDL_QUIT:
+                isOpen = 0;
+                break;
+            }
+        }
+
+        SDL_SetRenderDrawColor(pRenderer, 255, 255, 255, 255);
+        SDL_RenderClear(pRenderer);
+
+        SDL_SetRenderDrawColor(pRenderer, 0, 0, 0, 255);
+
+        // Tracez des lignes horizontales
+        for (int y = 0; y < 10; y++)
+        {
+            SDL_RenderDrawLine(pRenderer, 0, y * CELL_SIZE, GRID_SIZE, y * CELL_SIZE);
+        }
+
+        // Tracez des lignes verticales
+        for (int x = 0; x < 10; x++)
+        {
+            SDL_RenderDrawLine(pRenderer, x * CELL_SIZE, 0, x * CELL_SIZE, GRID_SIZE);
+        }
+
+        // Dessinez les numéros de la grille du Sudoku
+        drawSudoku(pRenderer, &sud);
+
+        SDL_RenderPresent(pRenderer);
+    }
+
+    SDL_DestroyRenderer(pRenderer);
+    SDL_DestroyWindow(pWindow);
+    SDL_Quit();
+
+    return EXIT_SUCCESS;
     innitGraphics(&sud);
     int quit = 1;
     while (quit)
@@ -196,7 +196,6 @@ int main(int ac, char **av)
 
     return 0;
 
-    TTF_CloseFont(font);
     TTF_Quit();
 }
 
