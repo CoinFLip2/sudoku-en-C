@@ -8,8 +8,50 @@
 #include <time.h>
 #include <windows.h>
 #include <SDL2/SDL.h>
+#include <time.h>
 
-// afficher le fichier, utiliser split, créer un tableau d'entier avec les chiffres récupérés
+#define WIDTHSCREEN 800
+#define HEIGHTSCREEN 600
+
+// Fonction pour dessiner les numéros de la grille de Sudoku sur la fenêtre
+void drawSudoku(SDL_Renderer* pRenderer, sudoku* sud) {
+    int cellSize = CELL_SIZE;
+
+    TTF_Font* font = NULL;
+
+    SDL_Color textColor = { 0, 0, 0, 255 }; // Couleur noire pour le texte
+
+    // Parcourez la grille de Sudoku et dessinez les chiffres
+    for (int y = 0; y < GRID_SIZE; y++) {
+        for (int x = 0; x < GRID_SIZE; x++) {
+            int num = sud->grid[y][x];
+            if (num != 0) 
+            {
+                char numStr[2];
+                snprintf(numStr, sizeof(numStr), "%d", num);
+
+                // Calculer la position pour dessiner le nombre au centre de la cellule
+                int textX = x * cellSize + cellSize / 2;
+                int textY = y * cellSize + cellSize / 2;
+
+                // Créez une texture à partir de la chaîne numérique et affichez-la sur la fenêtre
+                SDL_Surface* textSurface = TTF_RenderText_Solid(font, numStr, textColor);
+                SDL_Texture* textTexture = SDL_CreateTextureFromSurface(pRenderer, textSurface);
+
+                SDL_Rect textRect;
+                textRect.x = textX - textSurface->w / 2;
+                textRect.y = textY - textSurface->h / 2;
+                textRect.w = textSurface->w;
+                textRect.h = textSurface->h;
+
+                SDL_RenderCopy(pRenderer, textTexture, NULL, &textRect);
+
+                SDL_DestroyTexture(textTexture);
+                SDL_FreeSurface(textSurface);
+            }
+        }
+    }
+}
 
 int main(int ac, char **av)
 {
@@ -37,6 +79,13 @@ int main(int ac, char **av)
         return EXIT_FAILURE;
     }
 
+    if (TTF_Init() < 0) 
+    {
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "[DEBUG] > %s", TTF_GetError());
+        SDL_Quit();
+        return EXIT_FAILURE;
+    }
+
     SDL_Window *pWindow = NULL;
     SDL_Renderer *pRenderer = NULL;
 
@@ -49,6 +98,17 @@ int main(int ac, char **av)
 
     SDL_Event events;
     int isOpen = 1;
+
+    TTF_Font* font = TTF_OpenFont("C:/Windows/Fonts/ShortBaby-Mg2w.ttf", 16); // Remplacez le chiffre par la taille de police souhaitée
+    if (!font) 
+    {
+    SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "[DEBUG] > %s", TTF_GetError());
+    SDL_DestroyRenderer(pRenderer);
+    SDL_DestroyWindow(pWindow);
+    TTF_Quit();
+    SDL_Quit();
+    return EXIT_FAILURE;
+    }
 
     while (isOpen)
     {
@@ -65,10 +125,22 @@ int main(int ac, char **av)
         SDL_SetRenderDrawColor(pRenderer, 255, 255, 255, 255);
         SDL_RenderClear(pRenderer);
 
-        SDL_Point point = {800 / 2, 600 / 2};
         SDL_SetRenderDrawColor(pRenderer, 0, 0, 0, 255);
 
-        SDL_RenderDrawPoint(pRenderer, point.x, point.y);
+        // Tracez des lignes horizontales
+        for (int y = 0; y < GRID_SIZE; y++)
+        {
+            SDL_RenderDrawLine(pRenderer, 0, y * CELL_SIZE, WIDTHSCREEN, y * CELL_SIZE);
+        }
+
+        // Tracez des lignes verticales
+        for (int x = 0; x < GRID_SIZE; x++)
+        {
+            SDL_RenderDrawLine(pRenderer, x * CELL_SIZE, 0, x * CELL_SIZE, HEIGHTSCREEN);
+        }
+
+        // Dessinez les numéros de la grille du Sudoku
+        drawSudoku(pRenderer, &sud);
 
         SDL_RenderPresent(pRenderer);
     }
@@ -123,6 +195,9 @@ int main(int ac, char **av)
     quitGraphics(&sud);
 
     return 0;
+
+    TTF_CloseFont(font);
+    TTF_Quit();
 }
 
 int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, PSTR cmdline, int cmdshow)
