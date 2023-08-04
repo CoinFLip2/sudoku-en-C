@@ -10,6 +10,8 @@
 #define FONT_SIZE (CELL_SIZE - CELL_MARGIN * 2)
 #define WINDOW_WIDTH (GRID_SIZE)
 #define WINDOW_HEIGHT (GRID_SIZE)
+#define WIDTHSCREEN 800
+#define HEIGHTSCREEN 600
 
 
 typedef struct      s_sudoku
@@ -78,7 +80,7 @@ void innitGraphics(sudoku *sud);
 
 void quitGraphics(sudoku *sud);
 
-
+void drawSudoku(SDL_Renderer* pRenderer, sudoku* sud);
 
 
 
