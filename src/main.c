@@ -10,7 +10,6 @@
 #include <SDL2/SDL.h>
 #include <time.h>
 
-
 int main(int ac, char **av)
 {
     sudoku sud;
@@ -37,7 +36,7 @@ int main(int ac, char **av)
         return EXIT_FAILURE;
     }
 
-    if (TTF_Init() < 0) 
+    if (TTF_Init() < 0)
     {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "[DEBUG] > %s", TTF_GetError());
         SDL_Quit();
@@ -56,17 +55,6 @@ int main(int ac, char **av)
 
     SDL_Event events;
     int isOpen = 1;
-
-    // if (!font) 
-    // {
-    // SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "[DEBUG] > %s", TTF_GetError());
-    // SDL_DestroyRenderer(pRenderer);
-    // SDL_DestroyWindow(pWindow);
-    // TTF_Quit();
-    // SDL_Quit();
-    // return EXIT_FAILURE;
-    // }
-
 
     while (fgets(line, sizeof(line), file))
     {
@@ -87,15 +75,6 @@ int main(int ac, char **av)
         printf("Sudoku insoluble\n");
 
     removes(&sud, 81);
-
-    // for (int j = 0; j < 9; j++)
-    // {
-    //     for (int i = 0; i < 9; i++)
-    //     {
-    //         printf("%i ", sud.grid[j][i]);
-    //     }
-    //     printf("\n");
-    // }
 
     while (isOpen)
     {
